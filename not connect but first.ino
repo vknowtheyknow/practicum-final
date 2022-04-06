@@ -3,6 +3,7 @@
 #define ROCK 1
 #define PAPER 2
 #define SCISSORS 3
+
 const int button11Pin = PIN_PB3;  
 const int button12Pin = PIN_PB4; 
 const int button13Pin = PIN_PB5; 
@@ -28,6 +29,11 @@ int button23State;
 int state1;
 int state2;
 int winner;
+int Round = 0;
+
+//usbMsgLen_t usbFunctionSetup(uint8_t data[8]){
+//    usbRequest_t *rq = (usbRequest_t*)data;
+//    static uint8_t winner;
 void setup() {
   pinMode(button11Pin, INPUT_PULLUP);
   pinMode(button12Pin, INPUT_PULLUP);
@@ -62,6 +68,7 @@ void loop() {
   button22State = digitalRead(button22Pin);
   button23State = digitalRead(button23Pin);
   //user1
+  while(state1 == 0){
   if(button11State == LOW){
     servol11.write(0);
     state1 = ROCK;
@@ -79,7 +86,9 @@ void loop() {
       servol12.write(90);
       servol13.write(90);
   }
+  }
   //user2
+  while(state2 == 0){
   if(button21State == LOW){
     servol21.write(0);
     state2 = ROCK;
@@ -96,6 +105,7 @@ void loop() {
       servol21.write(90);
       servol22.write(90);
       servol23.write(90);
+  }
   }
 //  else if(button11Sta
   delay(500);
